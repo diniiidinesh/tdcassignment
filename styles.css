@@ -567,3 +567,14 @@ dialog::backdrop { background: #20274677; }
 .height-control small { display: block; font-size: 11px; line-height: 1.5; margin-top: 6px; color: var(--muted); }
 .dummy-link-label { font-size: 13px; }
 form .dummy-link-label input { display: inline-block; width: auto; margin: 0 6px 0 0; }
+
+.header-actions { display: flex; gap: 20px; align-items: center; }
+.staff-selector { display: flex; gap: 10px; align-items: center; font-size: 13px; font-weight: 600; }
+.staff-selector select { min-width: 64px; }
+.header-actions > a { font-size: 13px; white-space: nowrap; }
+@media (max-width: 700px) {
+  header { flex-wrap: wrap; gap: 14px; }
+  .header-actions { margin-left: auto; gap: 12px; }
+  .staff-selector { gap: 6px; font-size: 12px; }
+  .header-actions > a { font-size: 12px; }
+}

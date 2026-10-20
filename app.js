@@ -254,8 +254,11 @@
     if(!next.some(p=>p.isClient)) throw new Error('Keep at least one TDC client.');
     return copy(next);
   }
+  function assignedClients(pool,matchmaker) {
+    return pool.filter(p=>p.isClient&&p.assignedMatchmaker===matchmaker);
+  }
   const api = { meets, gate, credit, score, rank, classify, stated, suggestions, impact, makeHistory,
-    heightInches, formatHeight, validTimestamp, validSourceUrl, profileMetadata, validateRule, validatePerson, addRule, moveRule, asClient, mergePeople, FIELDS, SOURCES, CATEGORIES, LLM_MODEL };
+    assignedClients, heightInches, formatHeight, validTimestamp, validSourceUrl, profileMetadata, validateRule, validatePerson, addRule, moveRule, asClient, mergePeople, FIELDS, SOURCES, CATEGORIES, LLM_MODEL };
   root.MatchLogic=api;
   if(typeof module!=='undefined')module.exports=api;
   if(typeof document==='undefined'||!document.getElementById('app'))return;
@@ -354,14 +357,16 @@
     form.elements.weight.required=form.elements.tier.value==='softPreferences';
   }
   function selectors(){
-    const chosen=$('feedback-candidate').value;
-    $('client').innerHTML=people.filter(p=>p.isClient).map(p=>`<option value="${p.id}">${escape(p.name)} · ${p.assignedMatchmaker}</option>`).join('');$('client').value=clientId;
+    const chosen=$('feedback-candidate').value,owned=assignedClients(people,maker);
+    if(!owned.some(p=>p.id===clientId))clientId=owned[0]?.id||null;
+    $('client').innerHTML=owned.length?owned.map(p=>`<option value="${p.id}">${escape(p.name)}</option>`).join(''):'<option value="">No assigned clients</option>';
+    $('client').value=clientId||'';$('client').disabled=!owned.length;
     $('feedback-candidate').innerHTML=people.filter(p=>p.id!==clientId).map(p=>`<option value="${p.id}">${escape(p.name)}</option>`).join('');
     if(person(chosen)&&chosen!==clientId)$('feedback-candidate').value=chosen;
-    $('client-profile').textContent=`${person(clientId).name} · ${person(clientId).age} · ${person(clientId).city}. Assigned to Matchmaker ${person(clientId).assignedMatchmaker}.`;
-    const owned=people.filter(p=>p.isClient&&p.assignedMatchmaker===maker);
-    $('maker-context').textContent=`Demo operator: Matchmaker ${maker}. ${owned.length} assigned client${owned.length===1?'':'s'}. All operators use the same people pool. No authentication in this prototype.`;
-    $('sort-note').textContent=`Sorted by fit for ${person(clientId).name}, then their fit for the other person. The second score breaks ties; it is not averaged with the first.`;
+    $('feedback-candidate').disabled=!clientId;$('classify').disabled=busy||!clientId;$('near').disabled=!clientId;
+    $('client-profile').textContent=clientId?`${person(clientId).name} · ${person(clientId).age} · ${person(clientId).city}. Assigned to Matchmaker ${maker}.`:`No clients are assigned to Matchmaker ${maker}.`;
+    $('maker-context').textContent=`Matchmaker ${maker} · ${owned.length} assigned client${owned.length===1?'':'s'}. Your client list is filtered; the candidate pool is shared. Demo staff selection, without authentication.`;
+    $('sort-note').textContent=clientId?`Sorted by fit for ${person(clientId).name}, then their fit for the other person. The second score breaks ties; it is not averaged with the first.`:'Assign a client in People & data to start matching.';
   }
   function explanation(item){
     if(!item.total)return 'No soft preferences stated; score unavailable.';
@@ -379,6 +384,7 @@
   function touchPreferences(p){p.preferencesUpdatedAt=new Date().toISOString();}
   function profileDetails(p){return `${freshness(p)}<p class="muted">Preferences updated: ${escape(formatTimestamp(p.preferencesUpdatedAt))}<br>Source last updated (reported, not verified): ${escape(formatTimestamp(p.sourceUpdatedAt))}<br>${p.sourceUrlIsDemo?'Dummy link uses a reserved .example domain and does not identify a real account.':p.sourceUrl?'External profile links may require signing in.':'Source profile link not provided.'} Local edits do not verify external freshness.</p><dl class="profile-facts">${Object.entries(FIELDS).map(([key,f])=>`<div><dt>${escape(f.label)}</dt><dd>${escape(key==='height'?formatHeight(p[key]):typeof p[key]==='boolean'?(p[key]?'Yes':'No'):p[key])}</dd></div>`).join('')}</dl><p class="muted">${p.isClient?`TDC client · assigned to ${p.assignedMatchmaker}`:`Sourced profile · ${escape(p.source)}`} · Fictional demo record</p><h4>Own dealbreakers</h4><p>${escape(active(p.dealbreakers).map(ruleLabel).join('; ')||'None stated')}</p><h4>Own soft preferences</h4><p>${escape(p.softPreferences.map(r=>`${ruleLabel(r)} (weight ${r.weight})`).join('; ')||'None stated; reverse score unavailable')}</p>`;}
   function shortlist(){
+    if(!clientId){$('eligible-count').textContent='(0)';$('ranked').innerHTML='<div class="panel">No assigned clients yet. Add or assign a TDC client in People & data, or select another matchmaker.</div>';$('blocked-title').textContent='Blocked profiles (0)';$('blocked-list').innerHTML='';$('near-note').textContent='Matching becomes available when this matchmaker has an assigned client.';return;}
     const pool=people;
     const items=rank(client(),pool,near),eligible=items.filter(x=>!x.blocked),blocked=items.filter(x=>x.blocked),name=person(clientId).name;
     $('eligible-count').textContent=`(${eligible.length} of ${items.length})`;
@@ -388,6 +394,7 @@
     $('blocked-list').innerHTML=blocked.map(x=>`<div class="blocked-row"><strong>${escape(x.candidate.name)} · BLOCKED</strong>${freshness(x.candidate)}${x.reasons.map(r=>`<p>${escape(r.direction==='Client → candidate'?`${name}’s rule for ${x.candidate.name}`:`${x.candidate.name}’s rule for ${name}`)}: ${escape(r.rule)}</p>`).join('')}<button class="quiet" data-open-preferences="${x.candidate.id}">View & edit their preferences</button> <button class="quiet" data-reject="${x.candidate.id}">Log rejection</button></div>`).join('')||'<p>No blocked profiles in this view.</p>';
   }
   function renderSuggestions(){
+    if(!clientId){$('suggestion-count').textContent='';$('suggestion-list').innerHTML='<div class="panel">Select a matchmaker with an assigned client to review suggestions.</div>';$('review-history').innerHTML='';return;}
     const list=suggestions(client(),observations,reviews);$('suggestion-count').textContent=list.length||'';
     $('suggestion-list').innerHTML=list.map(s=>`<article class="panel"><h3>${escape(s.rule.label)}: ${s.rule.weight} → ${s.proposed}</h3><p>${s.count} matched rejection observations. A change needs your approval.</p>${s.evidence.slice(-3).map(e=>`<div class="evidence">“${escape(e.feedback)}” <small>(${escape(e.date)}, ${escape(e.candidateName)})</small></div>`).join('')}<button data-approve="${escape(s.rule.field)}">Approve weight ${s.proposed}</button> <button class="quiet" data-dismiss="${escape(s.rule.field)}">Dismiss</button></article>`).join('')||'<div class="panel"><h3>No unreviewed suggestions</h3><p>One rejection is not enough: some clients reject profiles they later accept. Another relevant observation can reopen a dismissed suggestion.</p></div>';
     $('review-history').innerHTML=reviews.filter(r=>r.clientId===clientId).map(r=>`<p>${escape(r.action)} · ${escape(r.category)} · ${r.count} observations. ${escape(r.detail)}</p>`).join('')||'<p>No reviews yet.</p>';
@@ -408,7 +415,7 @@
     $('people-list').innerHTML=list.map(p=>`<article class="person-row"><div><h3>${escape(p.name)}</h3><p>${p.age} · ${escape(p.gender)} · ${escape(p.city)} · ${escape(formatHeight(p.height))} · ₹${p.income}L</p><p class="muted">${p.isClient?`TDC client · Matchmaker ${p.assignedMatchmaker}`:`Sourced from ${escape(p.source)}`} · ${p.dealbreakers.length} hard / ${p.softPreferences.length} soft rules</p>${freshness(p)}</div><div class="actions"><button class="quiet" data-open-profile="${p.id}">Edit profile</button><button class="quiet" data-open-preferences="${p.id}">Preferences</button>${p.isClient?`<button data-work-client="${p.id}">Work with client</button>`:''}</div><details><summary>Explore all data</summary>${profileDetails(p)}</details></article>`).join('')||'<p class="panel">No people match these filters.</p>';
   }
   function render(){
-    selectors();editor(person(clientId),$('client-editor'));shortlist();renderSuggestions();renderImpact();recent();database();
+    selectors();if(clientId)editor(person(clientId),$('client-editor'));else $('client-editor').innerHTML='<p class="muted">Assign a client under People & data to manage their preferences.</p>';shortlist();renderSuggestions();renderImpact();recent();database();
     if(preferencesPersonId&&person(preferencesPersonId))editor(person(preferencesPersonId),$('person-preference-editor'));
   }
   function changed(){persist();render();}
@@ -423,7 +430,7 @@
   function openPreferences(id){preferencesPersonId=id;$('preference-dialog-title').textContent=`${person(id).name}’s preferences`;editor(person(id),$('person-preference-editor'));$('preference-dialog').showModal();}
   document.querySelector('nav').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)tab(b.dataset.tab);});
   $('client').addEventListener('change',()=>{clientId=$('client').value;render();});
-  $('maker').addEventListener('change',()=>{maker=$('maker').value;selectors();});
+  $('maker').addEventListener('change',()=>{maker=$('maker').value;render();});
   $('near').addEventListener('change',()=>{near=$('near').checked;shortlist();});
   $('reset').addEventListener('click',()=>{if(!busy){$('reset-dialog').showModal();}});
   $('confirm-reset').addEventListener('click',()=>{$('reset-dialog').close();initialize(true);persist();toast('Demo restored. Full named database is visible.');});
@@ -433,7 +440,7 @@
     if(b.dataset.closeDialog){$(b.dataset.closeDialog).close();return;}
     if(b.dataset.openProfile!==undefined){openProfile(b.dataset.openProfile||null);return;}
     if(b.dataset.openPreferences){openPreferences(b.dataset.openPreferences);return;}
-    if(b.dataset.workClient){clientId=b.dataset.workClient;render();tab('shortlist');return;}
+    if(b.dataset.workClient){clientId=b.dataset.workClient;maker=person(clientId).assignedMatchmaker;$('maker').value=maker;render();tab('shortlist');return;}
     if(b.dataset.moveRule!==undefined){
       const p=person(b.dataset.owner),from=b.dataset.group,index=Number(b.dataset.moveRule),r=p[from][index],soft=from==='dealbreakers';
       tierChange={owner:p.id,from,index};
@@ -557,7 +564,7 @@
     } finally {clearTimeout(timeout);}
   }
   $('feedback-form').addEventListener('submit',async e=>{
-    e.preventDefault();const text=$('feedback-text').value.trim();if(!text||busy)return;
+    e.preventDefault();const text=$('feedback-text').value.trim();if(!text||busy||!clientId)return;
     busy=true;$('classify').disabled=true;$('reset').disabled=true;$('feedback-status').textContent='Classifying feedback…';
     const selected=person($('feedback-candidate').value);
     if(!selected){busy=false;$('classify').disabled=false;$('reset').disabled=false;$('feedback-status').textContent='Add another person before logging rejection feedback.';return;}
@@ -571,7 +578,7 @@
       $('classification').textContent=JSON.stringify(result,null,2);$('classifier-method').textContent=method;
       $('feedback-status').textContent=`${warning}Rejection saved for ${c.name} / ${p.name}${pending?' against the pending send':' as a standalone observation'}. Historical impact is unchanged.`;
       $('feedback-text').value='';persist();renderSuggestions();recent();toast('Rejection logged. Review Suggestions for new evidence.');
-    }finally{busy=false;$('classify').disabled=false;$('reset').disabled=false;}
+    }finally{busy=false;$('classify').disabled=!clientId;$('reset').disabled=false;}
   });
   $('preference-dialog').addEventListener('close',()=>{preferencesPersonId=null;render();});
   initialize();

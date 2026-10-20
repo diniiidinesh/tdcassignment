@@ -2,10 +2,10 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A two-way preference checker for thoughtful matchmaking."><title>Before you send · The Date Crew</title><link rel="stylesheet" href="styles.css"><script defer src="data.js"></script><script defer src="app.js"></script></head>
 <body>
-<header><a class="brand" href="index.html"><span class="brand-icon">♥</span> The Date Crew <small>Matchmaker workspace</small></a><a href="tests.html">Run tests</a></header>
+<header><a class="brand" href="index.html"><span class="brand-icon">♥</span> The Date Crew <small>Matchmaker workspace</small></a><div class="header-actions"><label class="staff-selector">Matchmaker <select id="maker" aria-label="Current matchmaker"><option>A</option><option>B</option></select></label><a href="tests.html">Run tests</a></div></header>
 <main id="app">
 <div class="heading"><div><p class="eyebrow">A little more care, before every introduction.</p><h1>Before you send.</h1><p>Check both ways. Rank what matters. Keep the human in the loop.</p></div><span class="pill">Assignment prototype · synthetic data</span></div>
-<div class="toolbar"><label>Working with <select id="client"></select></label><label>Demo operator <select id="maker"><option>A</option><option>B</option></select></label><button id="reset" class="quiet">Reset demo</button><span id="storage-note"></span></div>
+<div class="toolbar"><label>Working with <select id="client"></select></label><button id="reset" class="quiet">Reset demo</button><span id="storage-note"></span></div>
 <p id="maker-context" class="muted"></p>
 <nav aria-label="Workspace"><button data-tab="shortlist" aria-selected="true">Preferences & shortlist</button><button data-tab="feedback">Rejection feedback</button><button data-tab="suggestions">Suggestions <span id="suggestion-count"></span></button><button data-tab="people">People & data</button><button data-tab="impact">Impact & send history</button></nav>
 <section id="shortlist" class="tab">

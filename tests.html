@@ -156,5 +156,13 @@ test('Dummy source links are explicit and retain real-link validation',()=>{
   assert(!L.validSourceUrl('https://evil.example/profile','Jeevansathi',true),'Arbitrary domain rejected even for dummy');
   assert(D.people.filter(p=>!p.isClient).every(p=>p.sourceUrlIsDemo&&L.validatePerson(p).length===0),'Seeded sourced people have valid dummy links');
 });
+test('Matchmaker context contains only their assigned TDC clients',()=>{
+  const a=L.assignedClients(D.people,'A'),b=L.assignedClients(D.people,'B');
+  assert(a.length===3&&b.length===2,'Seed assignments');
+  assert(a.every(p=>p.isClient&&p.assignedMatchmaker==='A'),'A owns every option');
+  assert(b.every(p=>p.isClient&&p.assignedMatchmaker==='B'),'B owns every option');
+  const empty=clone(D.people);empty.filter(p=>p.isClient).forEach(p=>p.assignedMatchmaker='A');
+  assert(L.assignedClients(empty,'B').length===0,'Empty owner supported');
+});
 const summary=document.createElement('h2');summary.textContent=`${passed} passed · ${failed} failed`;document.getElementById('results').prepend(summary);document.title=`${failed?'FAIL':'PASS'} · ${passed} tests`;window.testResults={passed,failed};
 </script></main></body></html>
