@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A two-way preference checker for thoughtful matchmaking."><title>Before you send · The Date Crew</title><link rel="stylesheet" href="styles.css"><script defer src="data.js"></script><script defer src="app.js"></script></head>
+<body>
+<header><a class="brand" href="index.html"><span class="brand-icon">♥</span> The Date Crew <small>Matchmaker workspace</small></a><a href="tests.html">Run tests</a></header>
+<main id="app">
+<div class="heading"><div><p class="eyebrow">A little more care, before every introduction.</p><h1>Before you send.</h1><p>Check both ways. Rank what matters. Keep the human in the loop.</p></div><span class="pill">Assignment prototype · synthetic data</span></div>
+<div class="toolbar"><label>Working with <select id="client"></select></label><label>Demo operator <select id="maker"><option>A</option><option>B</option></select></label><button id="reset" class="quiet">Reset demo</button><span id="storage-note"></span></div>
+<p id="maker-context" class="muted"></p>
+<nav aria-label="Workspace"><button data-tab="shortlist" aria-selected="true">Preferences & shortlist</button><button data-tab="feedback">Rejection feedback</button><button data-tab="suggestions">Suggestions <span id="suggestion-count"></span></button><button data-tab="people">People & data</button><button data-tab="impact">Impact & send history</button></nav>
+<section id="shortlist" class="tab">
+  <div class="workspace">
+    <aside class="panel">
+      <h2>Client preferences</h2><p id="client-profile" class="muted"></p>
+      <p class="muted">Edit values, switch between hard and soft, remove rules, or add preferences. Both fit scores update immediately.</p>
+      <div id="client-editor"></div>
+    </aside>
+    <div>
+      <div class="list-heading"><div><h2>The shortlist <span id="eligible-count"></span></h2><p id="sort-note" class="muted"></p></div><label class="toggle"><input id="near" type="checkbox"> Include near misses</label></div>
+      <p id="near-note" class="notice"></p>
+      <div id="ranked"></div>
+      <details class="panel" id="blocked"><summary id="blocked-title"></summary><div id="blocked-list"></div></details>
+    </div>
+  </div>
+</section>
+<section id="feedback" class="tab" hidden><div class="two-col"><div class="panel"><h2>Listen, then learn</h2><p>Log a rejection against an existing send, or as a standalone preference observation.</p><form id="feedback-form"><label>Candidate<select id="feedback-candidate"></select></label><label>Rejection feedback<textarea id="feedback-text" required maxlength="2000" rows="5" placeholder="e.g. He's not vegetarian, that really matters to me."></textarea></label><label>OpenAI API key (optional)<input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Leave blank for the offline classifier"></label><p class="muted">Held in this page’s memory only. Clear below when finished. With a key, feedback and stated rules are sent to OpenAI; no profile names are sent. Use a temporary demo key; production needs a server proxy.</p><button type="button" class="quiet" id="clear-key">Clear key</button><button id="classify" type="submit">Classify & log rejection</button></form><p id="feedback-status" role="status"></p></div><div class="panel"><h2>Classification result</h2><p id="classifier-method" class="muted">Offline rules are available without a key.</p><pre id="classification">Submit feedback to see its JSON classification.</pre><h3>Try the learning loop</h3><p>Ananya has two earlier diet objections. That evidence was previously reviewed and dismissed. Log “not vegetarian, food habits matter” for Rishabh Malhotra (assignment B) to reopen the suggestion with three observations, then approve it in Suggestions.</p><p>One rejection never changes a preference. Some clients reject profiles they later accept.</p><div id="recent-feedback"></div></div></div></section>
+<section id="suggestions" class="tab" hidden><div class="section-heading"><h2>A suggestion, never an automatic change.</h2><p>At least two matched rejection observations are needed. Approval raises a weight by 3, capped at 10. A dismissed suggestion reopens only with new evidence.</p></div><div id="suggestion-list"></div><div class="panel"><h3>Review history</h3><div id="review-history"></div><p class="muted">Family background, attraction and vibe are never inferred into new rules. Discuss these with the client.</p></div></section>
+<section id="people" class="tab" hidden>
+  <div class="section-heading"><h2>One pool. Every person, in context.</h2><p>Explore all people, inspect their own preferences, or add a profile to the same pool used by the shortlist.</p></div>
+  <details class="panel assumptions"><summary>Assignment assumptions & how ownership works</summary>
+    <p>Assumption: TDC has one shared people database. Paying TDC clients have an assigned matchmaker. Other profiles are sourced from services such as Shaadi and Jeevansathi, or through referrals. Source tags in this prototype are fictional provenance; no website is scraped or connected.</p>
+    <p>A client can also appear as a candidate for another client. A matchmaker owns a client relationship, not a separate candidate database. Historical sends record the operator who sent them, which may differ from the current assigned owner.</p>
+    <p>The operator dropdown simulates staff context and attribution. It is not login or access control. This build shares data across its own screens and operators in one browser; separate devices need a real backend to share changes. Browser storage is optional and wrapped in error handling.</p>
+    <p>Submission reminder: validate these assumptions with TDC. They are also recorded in the README.</p>
+  </details>
+  <div class="database-toolbar"><button data-open-profile="">Add person</button><button class="quiet" id="export-people">Export people JSON</button><label class="file-button">Import / update JSON<input type="file" id="import-people" accept="application/json,.json"></label></div>
+  <p class="muted">Imports are validated in full, then added or updated by stable ID. Export includes profiles and preferences, never API keys or feedback.</p><p id="import-status" role="status"></p>
+  <div class="database-filters"><label>Search people<input id="people-search" type="search" placeholder="Name, city or mother tongue"></label><label>Record type<select id="people-kind"><option value="">Everyone</option><option value="client">TDC clients</option><option value="sourced">Sourced profiles</option></select></label><label>Assigned matchmaker<select id="people-owner"><option value="">All owners</option><option>A</option><option>B</option></select></label><label>Profile source<select id="people-source"><option value="">All sources</option><option>TDC</option><option>Shaadi</option><option>Jeevansathi</option><option>Referral</option><option>Other</option></select></label></div>
+  <p id="people-count" class="muted"></p><div id="people-list"></div>
+</section>
+<section id="impact" class="tab" hidden><div class="section-heading"><h2>Fewer avoidable introductions.</h2><p>The past 30 days, across all five clients. Replayed using the rules and profiles recorded at send time.</p></div><div id="impact-metrics"></div><div class="notice">Projection assumes the same accepted outcomes among retained sends, with no replacement sends. It is a change in the denominator, not evidence of new acceptances. Soft misses alone are not gate violations.</div><div id="maker-metrics" class="two-col"></div><details class="panel"><summary>Inspect the 200 historical sends</summary><div id="history"></div></details></section>
+</main>
+<dialog id="profile-dialog" aria-labelledby="profile-dialog-title">
+  <div class="dialog-heading"><h2 id="profile-dialog-title">Add a person</h2><button type="button" class="quiet" data-close-dialog="profile-dialog" aria-label="Close profile editor">Close</button></div>
+  <p class="muted">Use the person's stated information. Changes apply everywhere in this browser. Set TDC clients to source TDC and assign A or B; sourced profiles have no assigned owner.</p>
+  <form id="profile-form"><div id="profile-fields" class="profile-form-grid"></div><p id="profile-errors" class="form-error" role="alert"></p><button>Save person</button><button type="button" class="quiet" data-close-dialog="profile-dialog">Cancel</button></form>
+</dialog>
+<dialog id="preference-dialog" aria-labelledby="preference-dialog-title">
+  <div class="dialog-heading"><h2 id="preference-dialog-title">Preferences</h2><button class="quiet" data-close-dialog="preference-dialog">Done</button></div><p class="muted">These are this person's preferences about a partner. Changes save immediately. Missing soft preferences produce an unavailable fit score, never an assumed 100%.</p><div id="person-preference-editor"></div>
+</dialog>
+<dialog id="tier-dialog" aria-labelledby="tier-title">
+  <h2 id="tier-title">Change preference tier</h2><p id="tier-rule"></p><p id="tier-effect"></p>
+  <form id="tier-form"><label id="tier-weight-label">Importance when soft (1–10)<input id="tier-weight" type="number" min="1" max="10" step="1" value="5"></label><p id="tier-errors" class="form-error" role="alert"></p><button>Apply change</button><button type="button" class="quiet" data-close-dialog="tier-dialog">Cancel</button></form>
+</dialog>
+<dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">Restore the demo data?</h2><p>This clears changes saved by this prototype in this browser, including added people and feedback. Export people first if you want to keep them.</p><button id="confirm-reset">Restore demo data</button><button class="quiet" data-close-dialog="reset-dialog">Cancel</button></dialog>
+<div id="toast" role="status" aria-live="polite"></div><footer>Built for careful introductions. All people and outcomes are fictional. <a href="README.md">README & assumptions</a></footer>
+</body></html>

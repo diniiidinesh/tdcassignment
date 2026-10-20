@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Decision engine tests</title><link rel="stylesheet" href="styles.css"><script src="data.js"></script><script src="app.js"></script></head><body><header><a href="index.html">← Back to workspace</a></header><main><h1>Decision engine tests</h1><p>Runs the same pure functions used by the workspace. No API key or network required.</p><div id="results" class="panel"></div><script>
+'use strict';
+const L=MatchLogic,D=MatchData,clone=x=>JSON.parse(JSON.stringify(x));
+let passed=0,failed=0;
+function assert(condition,message){if(!condition)throw new Error(message);}
+function test(name,fn){const p=document.createElement('p');try{fn();passed++;p.className='test-pass';p.textContent='PASS · '+name;}catch(e){failed++;p.className='test-fail';p.textContent='FAIL · '+name+': '+e.message;}document.getElementById('results').appendChild(p);}
+test('Required A/B/C: blocked, 19/24 = 79%, 10/24 = 42%',()=>{const [a,b,c]=D.candidates;assert(L.gate(D.clients[0],a).blocked,'A must block');assert(L.gate(D.clients[0],a).reasons[0].category==='smoking/drinking','A smoking reason');assert(!L.gate(D.clients[0],b).blocked&&!L.gate(D.clients[0],c).blocked,'B/C pass');const sb=L.score(D.clients[0],b),sc=L.score(D.clients[0],c);assert(sb.earned===19&&sb.total===24&&sb.percentage===79,'B score');assert(sc.earned===10&&sc.total===24&&sc.percentage===42,'C score');});
+test('Two-way gate: candidate blocks the client',()=>{const p=clone(D.candidates[1]);p.dealbreakers=[{field:'age',op:'min',value:35,label:'Age ≥35',category:'age'}];const g=L.gate(D.clients[0],p);assert(g.blocked&&g.reasons.some(r=>r.direction==='Candidate → client'),'Reverse block missing');});
+test('Near-miss off/on, inclusive boundaries, hard rules never relax',()=>{const c=clone(D.clients[0]),p=clone(D.candidates[1]);c.softPreferences=[{field:'height',op:'min',value:70,weight:8,tolerance:2},{field:'income',op:'min',value:30,weight:2,tolerance:.15,relative:true}];p.height=68;p.income=25.5;assert(L.score(c,p,false).earned===0,'Off gives zero');assert(L.score(c,p,true).earned===5,'On gives half');p.height=67.9;p.income=25.49;assert(L.score(c,p,true).earned===0,'Outside tolerance');p.age=28;assert(L.gate(c,p).blocked,'Hard age cannot relax');});
+test('Approved weight change re-ranks; no automatic mutation',()=>{const c=clone(D.clients[0]);c.softPreferences=[{field:'city',op:'eq',value:'Bengaluru',category:'location',weight:3},{field:'diet',op:'eq',value:'vegetarian',category:'diet',weight:2}];const pool=D.candidates.slice(1,3);assert(L.rank(c,pool)[0].candidate.id==='p2','B initially first');const obs=[1,2,3].map(i=>({clientId:c.id,classification:{category:'diet',matched_stated_preference:true}}));const s=L.suggestions(c,obs,[])[0];assert(c.softPreferences[1].weight===2&&s.proposed===5,'Suggestion must not mutate weight');c.softPreferences[1].weight=s.proposed;assert(L.rank(c,pool)[0].candidate.id==='p3','C first after approval');});
+test('No soft preferences: N/A score and deterministic tie',()=>{const c=clone(D.clients[0]);c.softPreferences=[];const s=L.score(c,D.candidates[1]);assert(s.total===0&&s.earned===0&&s.percentage===null,'No division by zero');assert(L.rank(c,D.candidates.slice(1,3))[0].candidate.id==='p2','Stable ties');});
+test('All candidates blocked: no eligible entries',()=>{const c=clone(D.clients[0]);c.dealbreakers=[{field:'age',op:'min',value:99,label:'Age ≥99',category:'age'}];assert(L.rank(c,D.candidates).every(x=>x.blocked),'Every candidate must block');});
+test('Impact fixtures: 200 sends, 31% acceptance, 34.78% preventable',()=>{const log=L.makeHistory(D),m=L.impact(log);assert(m.total===200&&m.accepted===62&&m.rejected===138&&m.blockedRejections===48,'Fixture counts');assert(Math.abs(m.violationRate-34.7826087)<.0001,'Near 35%');assert(Math.abs(m.projected-40.7894737)<.0001,'Projection');const a=L.impact(log.filter(x=>x.matchmaker==='A')),b=L.impact(log.filter(x=>x.matchmaker==='B'));assert(b.blockedRejections>a.blockedRejections,'B has more');assert(D.clients.every(c=>log.filter(h=>h.clientId===c.id).length===40),'40 per client');});
+test('Learning threshold, dismissal and new evidence',()=>{const c=D.clients[0],obs=n=>Array.from({length:n},()=>({clientId:c.id,classification:{category:'diet',matched_stated_preference:true}}));assert(L.suggestions(c,obs(1),[]).length===0,'Single is insufficient');assert(L.suggestions(c,obs(2),[]).length===1,'Two is eligible');const reviews=[{clientId:c.id,category:'diet',count:2}];assert(L.suggestions(c,obs(2),reviews).length===0,'Dismissal holds');assert(L.suggestions(c,obs(3),reviews).length===1,'Third reopens');});
+test('Classifier uses one allowed category and stated preferences',()=>{const r=L.classify("he's in Pune, I said Bangalore only",D.clients[0]);assert(r.category==='location'&&r.matched_stated_preference,'Location classified');assert(r.summary.split(/\s+/).length<=12,'Summary length');const unknown=L.classify('hmm, pass',D.clients[0]);assert(unknown.category==='other'&&!unknown.matched_stated_preference,'Other fallback');});
+test('Missing numeric data never earns near-miss credit',()=>{const p=clone(D.candidates[1]);delete p.height;assert(L.credit(p,D.clients[0].softPreferences[0],true)===0,'Missing height');delete p.age;assert(L.gate(D.clients[0],p).blocked,'Missing hard field blocks');});
+test('Reciprocal scoring: named people, both preferences, no self-match',()=>{
+  const c=L.asClient(D.people.find(p=>p.id==='c1')),b=D.people.find(p=>p.id==='p2');
+  const item=L.rank(c,[b])[0];assert(item.percentage===79&&item.reverse.percentage===100,'Both directions use their own weights');
+  assert(L.rank(c,[c.profile]).length===0,'Self must be excluded');
+});
+test('Lexicographic order: client fit first; reverse fit breaks true ties',()=>{
+  const c=clone(D.clients[0]);c.softPreferences=[{field:'income',op:'min',value:20,category:'income',weight:5}];
+  const a=clone(D.candidates[1]),b=clone(D.candidates[2]);
+  a.softPreferences=[{field:'city',op:'eq',value:'Pune',weight:5}];b.softPreferences=[{field:'city',op:'eq',value:'Bengaluru',weight:5}];
+  assert(L.rank(c,[a,b])[0].candidate.id===b.id,'Reverse score breaks forward tie');
+  c.softPreferences.push({field:'city',op:'eq',value:'Bengaluru',weight:1});
+  assert(L.rank(c,[a,b])[0].candidate.id===a.id,'Higher forward score wins even when reverse is lower');
+});
+test('Reciprocal near misses and missing preferences',()=>{
+  const c=L.asClient(clone(D.people[0])),p=clone(D.people.find(p=>p.id==='p2'));
+  p.softPreferences=[{field:'height',op:'min',value:67,weight:8,tolerance:2}];
+  assert(L.rank(c,[p],false)[0].reverse.percentage===0,'Off in reverse direction');
+  assert(L.rank(c,[p],true)[0].reverse.percentage===50,'Half credit in reverse direction');
+  p.softPreferences=[];assert(L.rank(c,[p])[0].reverse.percentage===null,'Unknown reverse is not 100%');
+});
+test('Add and remove hard rules; duplicates and invalid ranges rejected',()=>{
+  const p=clone(D.people[0]);const r={field:'diet',op:'eq',value:'vegetarian',label:'Vegetarian',category:'diet'};
+  assert(L.addRule(p,'dealbreakers',r).length===0,'Can add a hard rule');
+  assert(L.gate(L.asClient(p),D.candidates[1]).blocked,'New hard rule blocks Rishabh');
+  const length=p.dealbreakers.length;assert(L.addRule(p,'dealbreakers',r).length>0&&p.dealbreakers.length===length,'Duplicate must not mutate');
+  p.dealbreakers.splice(p.dealbreakers.findIndex(r=>r.field==='diet'),1);
+  assert(!L.gate(L.asClient(p),D.candidates[1]).blocked,'Removal restores eligibility');
+  assert(L.validateRule({field:'age',op:'range',value:[34,29],label:'Age',category:'age'}).length>0,'Reversed range rejected');
+});
+test('Profile validation: assignment, numeric values, booleans and unique IDs',()=>{
+  const p=clone(D.people[0]);assert(L.validatePerson(p).length===0,'Valid seeded client');
+  p.assignedMatchmaker=null;assert(L.validatePerson(p).length>0,'Client requires owner');
+  const bad=clone(D.people[5]);bad.age=17;bad.height=-5;bad.smoking='false';bad.income=NaN;
+  assert(L.validatePerson(bad).length>=4,'Invalid structured fields rejected');
+  assert(L.validatePerson(D.people[0],[D.people[0]]).length>0,'Duplicate ID rejected');
+  assert(D.people.every(p=>L.validatePerson(p).length===0),'All 35 fixtures valid');
+});
+test('Shared records: editing a person changes their fit everywhere',()=>{
+  const pool=clone(D.people),ananya=pool.find(p=>p.id==='c1'),b=pool.find(p=>p.id==='p2');
+  b.city='Pune';assert(L.rank(L.asClient(ananya),[b])[0].percentage===54,'Profile edits update forward fit');
+  ananya.income=10;b.softPreferences=[{field:'income',op:'min',value:20,weight:3}];
+  assert(L.rank(L.asClient(ananya),[b])[0].reverse.percentage===0,'Client data is same record in reverse fit');
+});
+test('Maximum preference and inclusive tolerance work',()=>{
+  const r={field:'age',op:'max',value:32,tolerance:1,weight:5};
+  assert(L.meets({age:32},r),'Inclusive max');assert(L.credit({age:33},r,true)===.5,'Max near miss');assert(L.credit({age:34},r,true)===0,'Outside max tolerance');
+});
+test('Import validates atomically and upserts by stable ID',()=>{
+  const existing=clone(D.people),update=clone(existing[0]);update.income=33;
+  const next=L.mergePeople(existing,{version:2,people:[update]});
+  assert(next.length===35&&next[0].income===33,'Same ID updates, no duplicate');assert(existing[0].income===28,'Existing model not mutated');
+  const bad=clone(update);bad.age=10;let rejected=false;
+  try{L.mergePeople(existing,{version:2,people:[update,bad]});}catch{rejected=true;}
+  assert(rejected&&existing[0].income===28,'Any invalid record rejects whole batch');
+  rejected=false;try{L.mergePeople(existing,{version:2,people:[update,update]});}catch{rejected=true;}
+  assert(rejected,'Duplicate import IDs rejected');
+  const fresh=clone(existing[5]);fresh.id='new-profile';fresh.name='Ishan Bhat';
+  assert(L.mergePeople(existing,{version:2,people:[fresh]}).length===36,'New ID adds a person');
+});
+test('Unmapped feedback never claims to match gender or mother tongue',()=>{
+  const c=L.asClient(D.people[0]);const result=L.classify('hmm, pass',c);
+  assert(result.category==='other'&&!result.matched_stated_preference,'Other is not evidence for a specific rule');
+});
+test('Soft → hard → soft preserves the condition and former weight',()=>{
+  const p=clone(D.people[0]),r=clone(p.softPreferences.find(r=>r.field==='diet'));
+  assert(L.moveRule(p,'softPreferences',p.softPreferences.findIndex(r=>r.field==='diet')).length===0,'Promotion succeeds');
+  assert(!p.softPreferences.some(r=>r.field==='diet'),'No duplicate remains in soft tier');
+  assert(L.gate(L.asClient(p),D.candidates[1]).blocked,'Diet now blocks Rishabh');
+  const i=p.dealbreakers.findIndex(r=>r.field==='diet'),hard=p.dealbreakers[i];
+  assert(hard.value===r.value&&hard.op===r.op&&hard.weight===2,'Condition and previous weight preserved');
+  assert(L.score(L.asClient(p),D.candidates[1]).total===22,'Hard rule no longer earns score points');
+  assert(L.moveRule(p,'dealbreakers',i,hard.weight).length===0,'Demotion succeeds');
+  assert(!L.gate(L.asClient(p),D.candidates[1]).blocked,'Diet no longer blocks');
+  assert(L.score(L.asClient(p),D.candidates[1]).percentage===79,'Original score restored');
+});
+test('Hard → soft stops blocking, earns points and validates weight',()=>{
+  const p=clone(D.people[0]),i=p.dealbreakers.findIndex(r=>r.field==='smoking');
+  const before=JSON.stringify(p);assert(L.moveRule(p,'dealbreakers',i,11).length>0&&JSON.stringify(p)===before,'Invalid importance leaves both tiers intact');
+  assert(L.moveRule(p,'dealbreakers',i,5).length===0,'Demotion succeeds');
+  assert(!L.gate(L.asClient(p),D.candidates[0]).blocked,'Smoking is now a scored preference, not a block');
+  const s=L.score(L.asClient(p),D.candidates[0]);assert(s.total===29&&s.earned===24,'Soft score reflects smoking miss');
+});
+test('Tier moves do not overwrite existing rules or lose tolerance',()=>{
+  const p=clone(D.people[0]);p.dealbreakers.push({field:'height',op:'min',value:65,label:'Minimum height',category:'height'});
+  const i=p.softPreferences.findIndex(r=>r.field==='height'),before=JSON.stringify(p);
+  assert(L.moveRule(p,'softPreferences',i).length>0&&JSON.stringify(p)===before,'Conflict causes no partial mutation');
+  p.dealbreakers.pop();assert(L.moveRule(p,'softPreferences',i).length===0,'Promotion succeeds');
+  const j=p.dealbreakers.findIndex(r=>r.field==='height');assert(p.dealbreakers[j].tolerance===2,'Tolerance retained');
+  const c=clone(D.candidates[1]);c.height=69;assert(L.gate(L.asClient(p),c).blocked,'Hard rule ignores near-miss tolerance');
+  assert(L.moveRule(p,'dealbreakers',j,8).length===0,'Return to soft succeeds');
+  assert(L.score(L.asClient(p),c,true).earned===15,'Half credit restored on demotion');
+});
+test('Source links require HTTPS and the correct platform domain',()=>{
+  assert(L.validSourceUrl('https://www.jeevansathi.com/profile/TEST','Jeevansathi'),'Correct domain');
+  assert(!L.validSourceUrl('javascript:alert(1)','Jeevansathi'),'Unsafe scheme');
+  assert(!L.validSourceUrl('https://jeevansathi.com.evil.test/profile','Jeevansathi'),'Lookalike host');
+  assert(!L.validSourceUrl('https://user:password@www.shaadi.com/profile','Shaadi'),'Credentials forbidden');
+  assert(!L.validSourceUrl('https://www.shaadi.com/profile','Jeevansathi'),'Wrong source');
+  assert(L.validSourceUrl('','Shaadi'),'Optional missing link');
+});
+test('Freshness metadata validates, preserves imports and accepts legacy records',()=>{
+  const p=clone(D.people[6]);p.sourceUrl='https://www.jeevansathi.com/profile/DEMO';p.sourceProfileId='JS-DEMO-42';p.sourceUpdatedAt='2026-10-01T12:00:00.000Z';
+  assert(L.validatePerson(p).length===0,'Valid source metadata');
+  const merged=L.mergePeople(D.people,{version:2,people:[p]}).find(x=>x.id===p.id);
+  assert(merged.updatedAt===p.updatedAt&&merged.sourceUrl===p.sourceUrl&&merged.sourceProfileId===p.sourceProfileId,'Metadata preserved on import');
+  delete p.updatedAt;delete p.preferencesUpdatedAt;delete p.sourceUpdatedAt;delete p.sourceUrl;delete p.sourceProfileId;
+  assert(L.validatePerson(p).length===0,'Legacy records remain valid');
+});
+test('Bad timestamps and invalid source IDs are rejected',()=>{
+  const p=clone(D.people[6]);p.updatedAt='yesterday';p.sourceUpdatedAt='2999-01-01T00:00:00.000Z';p.sourceProfileId='<script>';
+  assert(L.validatePerson(p).length>=3,'All invalid metadata rejected');
+  assert(L.validTimestamp('2026-10-01T12:00:00.000Z')&&!L.validTimestamp('2026-02-30T12:00:00.000Z'),'Canonical and real calendar timestamp');
+});
+test('Profile timestamps change for facts, not unchanged saves or preference edits',()=>{
+  const old=clone(D.people[6]),next=clone(old),now='2026-10-20T10:00:00.000Z';
+  assert(L.profileMetadata(old,next,now).updatedAt===old.updatedAt,'Unchanged saves preserve timestamp');
+  next.softPreferences[0].weight=2;assert(L.profileMetadata(old,next,now).updatedAt===old.updatedAt,'Weights do not refresh attributes');
+  next.income+=1;const metadata=L.profileMetadata(old,next,now);assert(metadata.updatedAt===now&&metadata.preferencesUpdatedAt===old.preferencesUpdatedAt,'Fact edit updates only profile timestamp');
+  const legacy=clone(old);delete legacy.updatedAt;delete legacy.sourceUrl;const saved=clone(legacy);saved.sourceUrl='';
+  assert(L.profileMetadata(legacy,saved,now).updatedAt===null,'Legacy unknown date remains unknown on no-op');
+  assert(L.profileMetadata(null,next,now).updatedAt===now,'New profile receives creation/update timestamp');
+});
+test('Height accepts centimetres or feet plus inches without changing scoring',()=>{
+  assert(L.heightInches('ft',5,10)===70,'5 ft 10 in converts to fixture threshold');
+  assert(Math.abs(L.heightInches('cm',177.8)-70)<1e-9,'Metric equivalent');
+  const p=clone(D.candidates[1]);p.height=L.heightInches('cm',180.34);
+  assert(L.score(D.clients[0],p).percentage===79,'Unit conversion preserves score');
+  assert(L.formatHeight(71)==='5′11″ (180.3 cm)','Readable height display');
+});
+test('Height validation rejects bad units, inches and out-of-bounds values',()=>{
+  assert(L.heightInches('ft',5,12)===null,'Inches must be below 12');
+  assert(L.heightInches('ft',5.5,0)===null,'Feet are whole');
+  assert(L.heightInches('cm','')===null&&L.heightInches('cm',100)===null,'Empty or too short rejected');
+  assert(L.heightInches('cm',121.92)===48&&L.heightInches('ft',7,6)===90,'Endpoints included');
+});
+test('Dummy source links are explicit and retain real-link validation',()=>{
+  assert(L.validSourceUrl('https://jeevansathi.example/profiles/demo-p2','Jeevansathi',true),'Labelled dummy link');
+  assert(!L.validSourceUrl('https://jeevansathi.example/profiles/demo-p2','Jeevansathi',false),'Dummy flag required');
+  assert(!L.validSourceUrl('https://evil.example/profile','Jeevansathi',true),'Arbitrary domain rejected even for dummy');
+  assert(D.people.filter(p=>!p.isClient).every(p=>p.sourceUrlIsDemo&&L.validatePerson(p).length===0),'Seeded sourced people have valid dummy links');
+});
+const summary=document.createElement('h2');summary.textContent=`${passed} passed · ${failed} failed`;document.getElementById('results').prepend(summary);document.title=`${failed?'FAIL':'PASS'} · ${passed} tests`;window.testResults={passed,failed};
+</script></main></body></html>

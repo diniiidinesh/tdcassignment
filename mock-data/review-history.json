@@ -1,0 +1,9 @@
+[
+  {
+    "clientId": "c1",
+    "category": "diet",
+    "count": 2,
+    "action": "Dismissed",
+    "detail": "Prior review: wait for more evidence."
+  }
+]

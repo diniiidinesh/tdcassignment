@@ -1,0 +1,400 @@
+[
+  {
+    "id": "c1",
+    "name": "Ananya Rao",
+    "profile": {
+      "gender": "woman",
+      "age": 30,
+      "height": 65,
+      "city": "Bengaluru",
+      "education": "postgraduate",
+      "income": 28,
+      "diet": "vegetarian",
+      "smoking": false,
+      "drinking": "occasionally",
+      "wantsChildren": true,
+      "maritalStatus": "never married",
+      "motherTongue": "Kannada"
+    },
+    "dealbreakers": [
+      {
+        "field": "smoking",
+        "op": "eq",
+        "value": false,
+        "label": "Non-smoker",
+        "category": "smoking/drinking",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": true,
+        "label": "Wants children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          29,
+          34
+        ],
+        "label": "Age 29–34",
+        "category": "age",
+        "tolerance": 1,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 70,
+        "label": "Height ≥ 5′10″",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 8
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 6
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      },
+      {
+        "field": "diet",
+        "op": "eq",
+        "value": "vegetarian",
+        "label": "Vegetarian",
+        "category": "diet",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "name": "Rohan Mehta",
+    "profile": {
+      "gender": "man",
+      "age": 32,
+      "height": 71,
+      "city": "Mumbai",
+      "education": "postgraduate",
+      "income": 42,
+      "diet": "vegetarian",
+      "smoking": false,
+      "drinking": "occasionally",
+      "wantsChildren": true,
+      "maritalStatus": "never married",
+      "motherTongue": "Gujarati"
+    },
+    "dealbreakers": [
+      {
+        "field": "smoking",
+        "op": "eq",
+        "value": false,
+        "label": "Non-smoker",
+        "category": "smoking/drinking",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "diet",
+        "op": "eq",
+        "value": "vegetarian",
+        "label": "Vegetarian",
+        "category": "diet",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 9
+      },
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          27,
+          33
+        ],
+        "label": "Age 27–33",
+        "category": "age",
+        "tolerance": 1,
+        "relative": false,
+        "weight": 6
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      }
+    ]
+  },
+  {
+    "id": "c3",
+    "name": "Meera Nair",
+    "profile": {
+      "gender": "woman",
+      "age": 33,
+      "height": 65,
+      "city": "Pune",
+      "education": "postgraduate",
+      "income": 28,
+      "diet": "vegetarian",
+      "smoking": false,
+      "drinking": "occasionally",
+      "wantsChildren": true,
+      "maritalStatus": "divorced",
+      "motherTongue": "Malayalam"
+    },
+    "dealbreakers": [
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": true,
+        "label": "Wants children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          30,
+          38
+        ],
+        "label": "Age 30–38",
+        "category": "age",
+        "tolerance": 1,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 8
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 5
+      },
+      {
+        "field": "smoking",
+        "op": "eq",
+        "value": false,
+        "label": "Non-smoker",
+        "category": "smoking/drinking",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      }
+    ]
+  },
+  {
+    "id": "c4",
+    "name": "Kabir Sethi",
+    "profile": {
+      "gender": "man",
+      "age": 35,
+      "height": 72,
+      "city": "Delhi",
+      "education": "postgraduate",
+      "income": 50,
+      "diet": "non-vegetarian",
+      "smoking": false,
+      "drinking": "occasionally",
+      "wantsChildren": false,
+      "maritalStatus": "never married",
+      "motherTongue": "Hindi"
+    },
+    "dealbreakers": [
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": false,
+        "label": "Does not want children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "smoking",
+        "op": "eq",
+        "value": false,
+        "label": "Non-smoker",
+        "category": "smoking/drinking",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 6
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 8
+      },
+      {
+        "field": "height",
+        "op": "min",
+        "value": 65,
+        "label": "Height ≥ 5′5″",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "c5",
+    "name": "Ishita Sen",
+    "profile": {
+      "gender": "woman",
+      "age": 29,
+      "height": 65,
+      "city": "Hyderabad",
+      "education": "postgraduate",
+      "income": 28,
+      "diet": "vegetarian",
+      "smoking": false,
+      "drinking": "occasionally",
+      "wantsChildren": true,
+      "maritalStatus": "never married",
+      "motherTongue": "Bengali"
+    },
+    "dealbreakers": [
+      {
+        "field": "smoking",
+        "op": "eq",
+        "value": false,
+        "label": "Non-smoker",
+        "category": "smoking/drinking",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "maritalStatus",
+        "op": "eq",
+        "value": "never married",
+        "label": "Never married",
+        "category": "marital status",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 8
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": true,
+        "label": "Wants children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "diet",
+        "op": "eq",
+        "value": "vegetarian",
+        "label": "Vegetarian",
+        "category": "diet",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 3
+      }
+    ]
+  }
+]

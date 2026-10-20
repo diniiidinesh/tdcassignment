@@ -1,0 +1,2162 @@
+[
+  {
+    "id": "p1",
+    "name": "Advaith Hegde",
+    "gender": "man",
+    "age": 31,
+    "height": 72,
+    "city": "Bengaluru",
+    "education": "postgraduate",
+    "income": 35,
+    "diet": "vegetarian",
+    "smoking": true,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Kannada",
+    "dealbreakers": [],
+    "assignmentAlias": "A",
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "name": "Rishabh Malhotra",
+    "gender": "man",
+    "age": 32,
+    "height": 71,
+    "city": "Bengaluru",
+    "education": "postgraduate",
+    "income": 24,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Hindi",
+    "dealbreakers": [],
+    "assignmentAlias": "B",
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 5′4″",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "diet",
+        "op": "eq",
+        "value": "vegetarian",
+        "label": "Vegetarian",
+        "category": "diet",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "name": "Chirag Kulkarni",
+    "gender": "man",
+    "age": 30,
+    "height": 67,
+    "city": "Pune",
+    "education": "postgraduate",
+    "income": 38,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Marathi",
+    "dealbreakers": [],
+    "assignmentAlias": "C",
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "name": "Arjun Menon",
+    "gender": "man",
+    "age": 33,
+    "height": 69,
+    "city": "Bengaluru",
+    "education": "graduate",
+    "income": 28,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Malayalam",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p5",
+    "name": "Dev Shah",
+    "gender": "man",
+    "age": 35,
+    "height": 72,
+    "city": "Mumbai",
+    "education": "postgraduate",
+    "income": 44,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Gujarati",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p6",
+    "name": "Nikhil Iyer",
+    "gender": "man",
+    "age": 29,
+    "height": 70,
+    "city": "Hyderabad",
+    "education": "graduate",
+    "income": 32,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Tamil",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p7",
+    "name": "Aman Kapoor",
+    "gender": "man",
+    "age": 34,
+    "height": 73,
+    "city": "Delhi",
+    "education": "postgraduate",
+    "income": 48,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": false,
+    "maritalStatus": "divorced",
+    "motherTongue": "Hindi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": false,
+        "label": "Does not want children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p8",
+    "name": "Sahil Jain",
+    "gender": "man",
+    "age": 28,
+    "height": 68,
+    "city": "Pune",
+    "education": "graduate",
+    "income": 22,
+    "diet": "vegetarian",
+    "smoking": true,
+    "drinking": "regularly",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Hindi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p9",
+    "name": "Pranav Rao",
+    "gender": "man",
+    "age": 31,
+    "height": 70,
+    "city": "Bengaluru",
+    "education": "postgraduate",
+    "income": 36,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Kannada",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p10",
+    "name": "Aditya Bose",
+    "gender": "man",
+    "age": 36,
+    "height": 71,
+    "city": "Hyderabad",
+    "education": "postgraduate",
+    "income": 52,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "divorced",
+    "motherTongue": "Bengali",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p11",
+    "name": "Kunal Suri",
+    "gender": "man",
+    "age": 32,
+    "height": 69,
+    "city": "Delhi",
+    "education": "graduate",
+    "income": 29,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": false,
+    "maritalStatus": "never married",
+    "motherTongue": "Punjabi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p12",
+    "name": "Varun Desai",
+    "gender": "man",
+    "age": 30,
+    "height": 72,
+    "city": "Mumbai",
+    "education": "postgraduate",
+    "income": 40,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Gujarati",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p13",
+    "name": "Rahul Pillai",
+    "gender": "man",
+    "age": 37,
+    "height": 68,
+    "city": "Pune",
+    "education": "postgraduate",
+    "income": 33,
+    "diet": "non-vegetarian",
+    "smoking": true,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "divorced",
+    "motherTongue": "Malayalam",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": false,
+        "label": "Does not want children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p14",
+    "name": "Vivek Das",
+    "gender": "man",
+    "age": 34,
+    "height": 70,
+    "city": "Hyderabad",
+    "education": "graduate",
+    "income": 26,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Bengali",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p15",
+    "name": "Sameer Ali",
+    "gender": "man",
+    "age": 31,
+    "height": 71,
+    "city": "Delhi",
+    "education": "postgraduate",
+    "income": 46,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": false,
+    "maritalStatus": "never married",
+    "motherTongue": "Urdu",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 64,
+        "label": "Height ≥ 64 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p16",
+    "name": "Aditi Shah",
+    "gender": "woman",
+    "age": 29,
+    "height": 66,
+    "city": "Mumbai",
+    "education": "postgraduate",
+    "income": 32,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Gujarati",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p17",
+    "name": "Neha Rao",
+    "gender": "woman",
+    "age": 30,
+    "height": 65,
+    "city": "Bengaluru",
+    "education": "postgraduate",
+    "income": 28,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Kannada",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p18",
+    "name": "Priya Menon",
+    "gender": "woman",
+    "age": 32,
+    "height": 67,
+    "city": "Pune",
+    "education": "graduate",
+    "income": 24,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "divorced",
+    "motherTongue": "Malayalam",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p19",
+    "name": "Tara Sethi",
+    "gender": "woman",
+    "age": 33,
+    "height": 68,
+    "city": "Delhi",
+    "education": "postgraduate",
+    "income": 42,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": false,
+    "maritalStatus": "never married",
+    "motherTongue": "Hindi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": false,
+        "label": "Does not want children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p20",
+    "name": "Rhea Sen",
+    "gender": "woman",
+    "age": 28,
+    "height": 64,
+    "city": "Hyderabad",
+    "education": "postgraduate",
+    "income": 36,
+    "diet": "non-vegetarian",
+    "smoking": true,
+    "drinking": "regularly",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Bengali",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p21",
+    "name": "Kavya Iyer",
+    "gender": "woman",
+    "age": 31,
+    "height": 66,
+    "city": "Bengaluru",
+    "education": "postgraduate",
+    "income": 38,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Tamil",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p22",
+    "name": "Simran Kaur",
+    "gender": "woman",
+    "age": 34,
+    "height": 69,
+    "city": "Delhi",
+    "education": "graduate",
+    "income": 31,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": false,
+    "maritalStatus": "divorced",
+    "motherTongue": "Punjabi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p23",
+    "name": "Pooja Patel",
+    "gender": "woman",
+    "age": 27,
+    "height": 65,
+    "city": "Mumbai",
+    "education": "graduate",
+    "income": 23,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Gujarati",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p24",
+    "name": "Sneha Das",
+    "gender": "woman",
+    "age": 35,
+    "height": 67,
+    "city": "Hyderabad",
+    "education": "postgraduate",
+    "income": 45,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Bengali",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p25",
+    "name": "Diya Nair",
+    "gender": "woman",
+    "age": 30,
+    "height": 64,
+    "city": "Pune",
+    "education": "postgraduate",
+    "income": 30,
+    "diet": "non-vegetarian",
+    "smoking": true,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Malayalam",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      },
+      {
+        "field": "wantsChildren",
+        "op": "eq",
+        "value": false,
+        "label": "Does not want children",
+        "category": "children",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p26",
+    "name": "Sana Khan",
+    "gender": "woman",
+    "age": 32,
+    "height": 66,
+    "city": "Delhi",
+    "education": "postgraduate",
+    "income": 37,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": false,
+    "maritalStatus": "never married",
+    "motherTongue": "Urdu",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Delhi",
+        "label": "Lives in Delhi",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p27",
+    "name": "Anjali Gupta",
+    "gender": "woman",
+    "age": 29,
+    "height": 68,
+    "city": "Bengaluru",
+    "education": "graduate",
+    "income": 27,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Hindi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Bengaluru",
+        "label": "Lives in Bengaluru",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p28",
+    "name": "Mitali Roy",
+    "gender": "woman",
+    "age": 33,
+    "height": 65,
+    "city": "Hyderabad",
+    "education": "postgraduate",
+    "income": 41,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "divorced",
+    "motherTongue": "Bengali",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Hyderabad",
+        "label": "Lives in Hyderabad",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 25,
+        "label": "Income ≥ ₹25L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p29",
+    "name": "Shreya Joshi",
+    "gender": "woman",
+    "age": 31,
+    "height": 67,
+    "city": "Pune",
+    "education": "postgraduate",
+    "income": 34,
+    "diet": "vegetarian",
+    "smoking": false,
+    "drinking": "never",
+    "wantsChildren": true,
+    "maritalStatus": "never married",
+    "motherTongue": "Marathi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          31,
+          39
+        ],
+        "label": "Age 31–39",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Pune",
+        "label": "Lives in Pune",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 30,
+        "label": "Income ≥ ₹30L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  },
+  {
+    "id": "p30",
+    "name": "Naina Batra",
+    "gender": "woman",
+    "age": 34,
+    "height": 66,
+    "city": "Mumbai",
+    "education": "graduate",
+    "income": 29,
+    "diet": "non-vegetarian",
+    "smoking": false,
+    "drinking": "occasionally",
+    "wantsChildren": false,
+    "maritalStatus": "never married",
+    "motherTongue": "Punjabi",
+    "dealbreakers": [
+      {
+        "field": "age",
+        "op": "range",
+        "value": [
+          26,
+          38
+        ],
+        "label": "Age 26–38",
+        "category": "age",
+        "tolerance": 0,
+        "relative": false
+      }
+    ],
+    "softPreferences": [
+      {
+        "field": "height",
+        "op": "min",
+        "value": 69,
+        "label": "Height ≥ 69 inches",
+        "category": "height",
+        "tolerance": 2,
+        "relative": false,
+        "weight": 5
+      },
+      {
+        "field": "city",
+        "op": "eq",
+        "value": "Mumbai",
+        "label": "Lives in Mumbai",
+        "category": "location",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 7
+      },
+      {
+        "field": "education",
+        "op": "eq",
+        "value": "postgraduate",
+        "label": "Postgraduate",
+        "category": "education",
+        "tolerance": 0,
+        "relative": false,
+        "weight": 4
+      },
+      {
+        "field": "income",
+        "op": "min",
+        "value": 35,
+        "label": "Income ≥ ₹35L",
+        "category": "income",
+        "tolerance": 0.15,
+        "relative": true,
+        "weight": 3
+      }
+    ]
+  }
+]
